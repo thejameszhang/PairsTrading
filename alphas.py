@@ -725,7 +725,9 @@ class Enhanced_Noncolinear_Stop_Lowest_PValue(abstractalpha.AbstractAlpha):
 
 # -------------------------------------------------------------------------- #
 
-"""alphas used for the time complexity analysis"""
+"""
+These two alphas are used in the time complexity analysis.
+"""
 
 class Brute_Force(abstractalpha.AbstractAlpha):
     def __init__(self, reset, npairs, exit):
@@ -952,7 +954,9 @@ class Enhanced(abstractalpha.AbstractAlpha):
 
 # -------------------------------------------------------------------------- #
 
-"""three clustering methoda alphas"""
+"""
+These alphas were used to compare the three clustering methods we tried.
+"""
 
 class KMeans_Alpha(abstractalpha.AbstractAlpha):
     def __init__(self, reset, npairs, exit):
@@ -1262,6 +1266,12 @@ class OPTICS_Alpha(abstractalpha.AbstractAlpha):
         self.day_counter -= 1
         return op.weight(self.holdings)
 
+"""
+Below is our current best performing alpha, which uses PCA, OPTICS, and 
+has customizable parameters. This is the alpha we use for the hyperparameter
+optimization.
+"""
+
 class Testing2(abstractalpha.AbstractAlpha):
     def __init__(self, reset, npairs, enter, exit, stop):
         self.name = 'Testing2'
@@ -1386,6 +1396,12 @@ class Testing2(abstractalpha.AbstractAlpha):
         return op.weight(self.holdings)
 
 # -------------------------------------------------------------------------- #
+
+"""
+These alphas implement Hurst Exponent, a stochastic process that indicates
+whether a time series exhibits mean reversion, brownian motion / random walk, 
+or trending behavior. 
+"""
 
 class HURST(abstractalpha.AbstractAlpha):
     def __init__(self, reset, npairs, enter, exit, stop, hurstt):
@@ -1749,7 +1765,18 @@ class HURST_Sort(abstractalpha.AbstractAlpha):
 
 # -------------------------------------------------------------------------- #
 
-"""alphas that allow colinear pairs (pvalues of 0)"""
+"""
+DEPRECATED ALPHAS
+"""
+
+"""
+These alphas that allow colinear pairs when conducting pairs selection. 
+According to the Statsmodels documentation, when two time series are almost
+perfectly colinear, the test becomes unstable and the t-statistic is set to 
+infinity and the pvalue is set to 0. If two securities are perfectly 
+colinear, then they will almost never diverge from their historical mean, thus
+decreasing profitability and our alpha's activity.
+"""
 
 class Random1(abstractalpha.AbstractAlpha):
     def __init__(self, reset, npairs, exit):
@@ -2385,7 +2412,13 @@ class Enhanced_Stop_Lowest_PValue1(abstractalpha.AbstractAlpha):
         self.day_counter -= 1
         return op.weight(self.holdings)
 
-"""committed capital alphas"""
+"""
+These alphas implement a Committed Capital Weighting Scheme instead of a 
+Fully Invested Weighting Scheme, which we have implemented above. Throughout
+testing, committed capital alphas performed significantly worse, probably
+because pairs trading should already be low risk, so there's no need to 
+even more reserved with our weighting.
+"""
 
 class Random_Noncolinear2(abstractalpha.AbstractAlpha):
     def __init__(self, reset, npairs, exit):
@@ -3558,4 +3591,3 @@ class Enhanced_Noncolinear_Stop_Lowest_PValue2(abstractalpha.AbstractAlpha):
         # at the end of the trading day, decrement day_counter
         self.day_counter -= 1
         return self.holdings
-
