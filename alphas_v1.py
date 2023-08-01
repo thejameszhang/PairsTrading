@@ -8,8 +8,6 @@ from sklearn.decomposition import PCA
 from statsmodels.tsa.stattools import coint
 array_1d = Union[List, Tuple, pd.Series, np.ndarray]
 date_obj = Union[datetime.datetime, datetime.date]
-import sys
-sys.path.append('../')
 from siftools import abstractalpha
 from siftools import operators as op
 
